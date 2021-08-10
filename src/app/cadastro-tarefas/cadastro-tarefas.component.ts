@@ -9,6 +9,8 @@ import { TarefasService } from '../services/tarefas.service';
 })
 export class CadastroTarefasComponent implements OnInit {
 
+  message = "";
+
   constructor(private tarefasService: TarefasService) { }
 
   ngOnInit(): void {
@@ -48,7 +50,11 @@ export class CadastroTarefasComponent implements OnInit {
 
     this.formCadastroTarefa.reset();
 
-    window.alert('Tarefa cadastrada com sucesso!');
+    this.message = 'Tarefa cadastrada com sucesso!';
+  }
+
+  clearMessage() : void {
+    this.message = "";
   }
 
 }

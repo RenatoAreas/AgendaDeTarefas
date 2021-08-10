@@ -1,3 +1,10 @@
+<div *ngIf="message" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong><i class="fa fa-check-circle"></i> {{message}}</strong>
+    <button type="button" class="close" (click)="clearMessage()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Cadastro de Tarefas</h6>
@@ -10,39 +17,50 @@
                 <div class="col-md-6">
                     <label>Nome da tarefa:</label>
                     <input type="text" class="form-control" formControlName="nome" />
+
                     <div class="text-danger" *ngIf="form.nome.touched && form.nome.invalid">
 
                         <span *ngIf="form.nome.errors.required">
-                            <i class="fa fa-exclamation-circle">Por favor informe o nome.</i>
+                            <i class="fa fa-exclamation-circle"></i>
+                            Por favor, informe o nome.
                         </span>
 
                         <span *ngIf="form.nome.errors.minlength">
-                            <i class="fa fa-exclamation-circle">Por favor informe pelo menos 6 caracteres.</i>
+                            <i class="fa fa-exclamation-circle"></i>
+                            Por favor, informe pelo menos 6 caracteres.
                         </span>
 
                         <span *ngIf="form.nome.errors.maxlength">
-                            <i class="fa fa-exclamation-circle">Por favor informe no maximo 250 caracteres.</i>
+                            <i class="fa fa-exclamation-circle"></i>
+                            Por favor, informe no máximo 150 caracteres.
                         </span>
+
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Data da tarefa:</label>
                     <input type="date" class="form-control" formControlName="data" />
+
                     <div class="text-danger" *ngIf="form.data.touched && form.data.invalid">
 
-                        <span *ngIf="form.nome.errors.required">
-                            <i class="fa fa-exclamation-circle">Por favor informe a data.</i>
+                        <span *ngIf="form.data.errors.required">
+                            <i class="fa fa-exclamation-circle"></i>
+                            Por favor, informe a data.
                         </span>
+
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label>Hora da tarefa:</label>
                     <input type="time" class="form-control" formControlName="hora" />
+
                     <div class="text-danger" *ngIf="form.hora.touched && form.hora.invalid">
 
-                        <span *ngIf="form.nome.errors.required">
-                            <i class="fa fa-exclamation-circle">Por favor informe a hora.</i>
+                        <span *ngIf="form.hora.errors.required">
+                            <i class="fa fa-exclamation-circle"></i>
+                            Por favor, informe a hora.
                         </span>
+
                     </div>
                 </div>
             </div>
@@ -51,18 +69,22 @@
                 <div class="col-md-6">
                     <label>Descrição da tarefa:</label>
                     <textarea class="form-control" formControlName="descricao"></textarea>
+
                     <div class="text-danger" *ngIf="form.descricao.touched && form.descricao.invalid">
 
-                        <span *ngIf="form.nome.errors.required">
-                            <i class="fa fa-exclamation-circle">Por favor informe a descrição.</i>
+                        <span *ngIf="form.descricao.errors.required">
+                            <i class="fa fa-exclamation-circle"></i>
+                            Por favor, informe a descrição.
+                        </span>
 
-                            <span *ngIf="form.descricao.errors.minlength">
-                                <i class="fa fa-exclamation-circle">Por favor informe pelo menos 6 caracteres.</i>
-                            </span>
-    
-                            <span *ngIf="form.descricao.errors.maxlength">
-                                <i class="fa fa-exclamation-circle">Por favor informe no maximo 250 caracteres.</i>
-                            </span>
+                        <span *ngIf="form.descricao.errors.minlength">
+                            <i class="fa fa-exclamation-circle"></i>
+                            Por favor, informe pelo menos 6 caracteres.
+                        </span>
+
+                        <span *ngIf="form.descricao.errors.maxlength">
+                            <i class="fa fa-exclamation-circle"></i>
+                            Por favor, informe no máximo 250 caracteres.
                         </span>
 
                     </div>
@@ -75,20 +97,21 @@
                         <option value="2">MÉDIA</option>
                         <option value="3">ALTA</option>
                     </select>
-                    <div class="text-danger" 
-                    *ngIf="form.prioridade.touched && form.prioridade.invalid">
-                   
-                    <span *ngIf="form.nome.errors.required">
-                        <i class="fa fa-exclamation-circle">Por favor informe a prioridade.</i>
-                    </span>                   
-                </div>
+
+                    <div class="text-danger" *ngIf="form.prioridade.touched && form.prioridade.invalid">
+
+                        <span *ngIf="form.prioridade.errors.required">
+                            <i class="fa fa-exclamation-circle"></i>
+                            Por favor, informe a prioridade.
+                        </span>
+
+                    </div>
                 </div>
             </div>
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <button class="btn btn-success" type="submit" 
-                        [disabled]="!formCadastroTarefa.valid">
+                    <button class="btn btn-success" type="submit" [disabled]="!formCadastroTarefa.valid">
                         <i class="fa fa-check-circle"></i> Cadastrar Tarefa
                     </button>
                 </div>

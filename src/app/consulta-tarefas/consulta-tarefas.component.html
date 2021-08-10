@@ -3,6 +3,15 @@
         <h6 class="m-0 font-weight-bold text-primary">Consulta de Tarefas</h6>
     </div>
     <div class="card-body">
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <input type="text" class="form-control"
+                    placeholder="Filtar tarefa"
+                    [(ngModel)]="filtro"
+                    />
+            </div>
+        </div>
         
         <div class="table-responsive">
 
@@ -14,10 +23,11 @@
                         <th>Hora</th>
                         <th>Descrição</th>
                         <th>Prioridade</th>
+                        <th>Operações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of dados">
+                    <tr *ngFor="let item of dados | filter : filtro | paginate : { itemsPerPage: 3, currentPage: page }">
                         <td>{{item.nome}}</td>
                         <td>{{item.data}}</td>
                         <td>{{item.hora}}</td>
@@ -32,19 +42,130 @@
                             <span *ngIf="item.prioridade == '1'" 
                                 class="badge badge-success">BAIXA</span>
                         </td>
+                        <td>
+
+                            <button class="btn btn-sm btn-outline-primary"
+                                data-target="#modal_edicao"
+                                data-toggle="modal"
+                                title="Atualizar tarefa">
+                                <i class="fa fa-clone"></i>    
+                            </button>
+                            &nbsp;
+                            <button class="btn btn-sm btn-outline-danger"
+                                data-target="#modal_exclusao"
+                                data-toggle="modal"
+                                title="Excluir tarefa">
+                                <i class="fa fa-trash"></i>    
+                            </button>
+
+                        </td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="5">
-                            Quantidade de tarefas: {{dados.length}}
+                        <td colspan="6">
+                            Quantidade de tarefas: {{(dados | filter : filtro).length}}
                         </td>
                     </tr>
                 </tfoot>
             </table>
+
+            <!-- régua de paginação -->
+            <pagination-controls
+                (pageChange)="handlePageChange($event)"
+                previousLabel="Página anterior"
+                nextLabel="Próxima página"
+            >                
+            </pagination-controls>
 
         </div>
 
     </div>
 </div>
 
+<!-- Janela modal para atualizar os dados da tarefa -->
+<div id="modal_edicao" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Atualizar dados da tarefa</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+            <form>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Nome da tarefa:</label>
+                        <input type="text" class="form-control" />    
+                    </div>
+                    <div class="col-md-3">
+                        <label>Data da tarefa:</label>
+                        <input type="date" class="form-control"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Hora da tarefa:</label>
+                        <input type="time" class="form-control"/>
+                    </div>
+                </div>
+    
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label>Descrição da tarefa:</label>
+                        <textarea class="form-control"></textarea>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Prioridade:</label>
+                        <select class="form-control">
+                            <option value="">Escolha uma opção</option>
+                            <option value="1">BAIXA</option>
+                            <option value="2">MÉDIA</option>
+                            <option value="3">ALTA</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fa fa-check-circle"></i> Salvar Alterações
+                        </button>
+                    </div>
+                </div>
+    
+            </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Janela modal para excluir os dados da tarefa -->
+<div id="modal_exclusao" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Excluir tarefa</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+            <p>
+                Deseja realmente excluir a tarefa selecionada?
+            </p>
+
+            <hr/>
+
+            <button class="btn btn-danger">
+                <i class="fa fa-check-circle"></i> Confirmar exclusão
+            </button>
+
+        </div>
+      </div>
+    </div>
+  </div>

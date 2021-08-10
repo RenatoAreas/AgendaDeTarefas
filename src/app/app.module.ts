@@ -6,6 +6,12 @@ import { PainelPrincipalComponent } from './painel-principal/painel-principal.co
 import { CadastroTarefasComponent } from './cadastro-tarefas/cadastro-tarefas.component';
 import { ConsultaTarefasComponent } from './consulta-tarefas/consulta-tarefas.component';
 
+//importando a biblioteca de paginação de dados 
+import { NgxPaginationModule } from 'ngx-pagination'; 
+
+//importando o modulo de filtro de busca
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 //importando classes para configurar a biblioteca de rotas do angular 
 import { Routes, RouterModule } from '@angular/router';
 
@@ -32,7 +38,12 @@ const routes : Routes = [
     RouterModule.forRoot(routes),
     //registrando os módulos de formulário
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    //registrando a biblioteca de paginação
+    NgxPaginationModule,
+    //registrando a biblioteca de filtro de bisca
+    Ng2SearchPipeModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,12 +9,21 @@ import { TarefasService } from '../services/tarefas.service';
 })
 export class ConsultaTarefasComponent implements OnInit {
 
+  page = 1;
+
+  filtro = "";
+
   constructor(private tarefasServices: TarefasService) { }
 
   dados: Tarefa[] = []; 
 
   ngOnInit(): void {
     this.dados = this.tarefasServices.getTarefas();
+  }
+
+  //função para realizar a paginação
+  handlePageChange(event : any) : void {
+    this.page = event;
   }
 
 }
